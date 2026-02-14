@@ -1,0 +1,52 @@
+<div class="container" *ngIf="book">
+  <div class="breadcrumbs">
+    <a routerLink="/books">← Back to Library</a>
+  </div>
+  
+  <div class="card detail-card">
+    <div class="detail-row">
+      <div class="cover-section">
+        <img [src]="book.coverImage" [alt]="book.title" class="book-cover-large">
+      </div>
+      <div class="info-section">
+        <span class="badge">{{book.category}}</span>
+        <h1>{{book.title}}</h1>
+        <h3 class="author">By {{book.author}}</h3>
+        
+        <div class="availability-status" [class.available]="book.availableCopies > 0" [class.unavailable]="book.availableCopies === 0">
+           Status: {{book.availableCopies > 0 ? 'Available' : 'Currently Unavailable'}} 
+           <span class="count">({{book.availableCopies}} / {{book.totalCopies}} copies)</span>
+        </div>
+
+        <div class="description">
+            <h3>Description</h3>
+            <p>{{book.description}}</p>
+        </div>
+
+        <div class="actions mt-4" *ngIf="isStudent">
+            <div *ngIf="message" class="alert" [class.alert-success]="message.includes('success')" [class.alert-danger]="!message.includes('success')">
+                {{message}}
+            </div>
+            
+            <button 
+                *ngIf="!message"
+                (click)="borrowBook()" 
+                [disabled]="book.availableCopies === 0 || borrowing" 
+                class="btn btn-primary btn-lg"
+            >
+                {{ borrowing ? 'Processing...' : 'Borrow This Book' }}
+            </button>
+            <p *ngIf="book.availableCopies === 0" class="text-mute mt-2">
+                This book is currently out of stock. Please check back later.
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

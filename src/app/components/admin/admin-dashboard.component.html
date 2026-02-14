@@ -1,0 +1,39 @@
+<div class="admin-header">
+  <h2>Admin Dashboard</h2>
+  <a routerLink="/admin/books/add" class="btn btn-primary">+ Add New Book</a>
+</div>
+
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Copies (Avail/Total)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books$ | async">
+        <td>{{book.id}}</td>
+        <td><img [src]="book.coverImage" alt="Cover" class="book-thumbnail"></td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.category}}</td>
+        <td>
+            <span [class.text-danger]="book.availableCopies === 0" [class.text-success]="book.availableCopies > 0">
+                {{book.availableCopies}}
+            </span> 
+            / {{book.totalCopies}}
+        </td>
+        <td>
+          <a [routerLink]="['/admin/books/edit', book.id]" class="btn btn-sm btn-outline-primary mr-1">Edit</a>
+          <button (click)="deleteBook(book.id)" class="btn btn-sm btn-outline-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

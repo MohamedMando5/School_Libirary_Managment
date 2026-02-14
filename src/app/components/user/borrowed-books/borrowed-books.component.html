@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>My Borrowed Books</h2>
+  
+  <div *ngIf="loading" class="text-center mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div *ngIf="!loading && borrowedBooks.length === 0" class="empty-state">
+      <p>You haven't borrowed any books yet.</p>
+      <a routerLink="/books" class="btn btn-primary">Browse Books</a>
+  </div>
+
+  <div class="books-list" *ngIf="!loading && borrowedBooks.length > 0">
+      <div class="card book-item" *ngFor="let book of borrowedBooks">
+          <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
+          <div class="book-details">
+              <h3>{{book.title}}</h3>
+              <p class="author">{{book.author}}</p>
+              <div class="meta">
+                  <span class="due-date">Due: Nov 30, 2024</span>
+              </div>
+          </div>
+          <div class="actions">
+              <button (click)="returnBook(book)" class="btn btn-outline-primary">Return Book</button>
+          </div>
+      </div>
+  </div>
+</div>

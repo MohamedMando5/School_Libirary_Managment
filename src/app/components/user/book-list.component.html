@@ -1,0 +1,35 @@
+<div class="user-header">
+  <h2>Browse Books</h2>
+  <div class="filters">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (input)="filterBooks()" 
+      class="form-control search-input" 
+      placeholder="Search by title or author..." 
+    />
+    <select 
+      [(ngModel)]="selectedCategory" 
+      (change)="filterBooks()" 
+      class="form-control category-select"
+    >
+      <option value="">All Categories</option>
+      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="books-grid">
+  <div class="card book-card" *ngFor="let book of filteredBooks">
+    <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
+    <div class="book-info">
+        <span class="badge">{{book.category}}</span>
+        <h3>{{book.title}}</h3>
+        <p class="author">{{book.author}}</p>
+        <p class="availability" [class.available]="book.availableCopies > 0" [class.unavailable]="book.availableCopies === 0">
+            {{book.availableCopies > 0 ? 'Available' : 'Out of Stock'}} ({{book.availableCopies}})
+        </p>
+        <a [routerLink]="['/books', book.id]" class="btn btn-primary btn-block mt-2">View Details</a>
+    </div>
+  </div>
+</div>

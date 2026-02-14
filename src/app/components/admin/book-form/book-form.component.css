@@ -1,0 +1,41 @@
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.card {
+    border-top: 4px solid #1a73e8;
+}
+
+.card-header h2 {
+    margin: 0;
+    color: #202124;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #5f6368;
+    border: 1px solid #dadce0;
+    
+    &:hover {
+        background-color: #f1f3f4;
+        color: #202124;
+    }
+}

@@ -1,0 +1,76 @@
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #5f6368;
+    position: sticky;
+    top: 0;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  tr:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.book-thumbnail {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
+.btn-outline-primary {
+  color: #1a73e8;
+  border: 1px solid #1a73e8;
+  background: transparent;
+  
+  &:hover {
+    background-color: #e8f0fe;
+  }
+}
+
+.btn-outline-danger {
+  color: #d93025;
+  border: 1px solid #d93025;
+  background: transparent;
+  
+  &:hover {
+    background-color: #fce8e6;
+  }
+}
+
+.text-danger { color: #d93025; }
+.text-success { color: #1e8e3e; }
