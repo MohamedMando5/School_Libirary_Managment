@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h2>Reservation Management</h2>
+      <p class="subtitle">Manage user reservations and requests</p>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Book ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of reservations$ | async">
+          <td><span class="id-badge">#{{res.id}}</span></td>
+          <td>{{res.userId}}</td>
+          <td>{{res.bookId}}</td>
+          <td>{{res.reservationDate | date:'mediumDate'}}</td>
+          <td>
+            <span class="badge" 
+              [class.badge-success]="res.status === 'APPROVED'"
+              [class.badge-warning]="res.status === 'PENDING' || res.status === 'ACTIVE'"
+              [class.badge-danger]="res.status === 'CANCELLED'">
+              {{res.status}}
+            </span>
+          </td>
+          <td class="text-right">
+            <button (click)="approveReservation(res.id)" class="btn btn-sm btn-outline-primary mr-1" *ngIf="res.status === 'PENDING'">
+              Approve
+            </button>
+            <button (click)="cancelReservation(res.id)" class="btn btn-sm btn-outline-danger">
+              Cancel
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="(reservations$ | async)?.length === 0">
+          <td colspan="6" class="text-center">No reservations found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

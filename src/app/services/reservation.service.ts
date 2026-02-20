@@ -27,4 +27,14 @@ export class ReservationService {
   getUserReservations(userId: number): Observable<Reservation[]> {
     return of(this.reservations.filter(r => r.userId === userId));
   }
+
+  updateReservationStatus(id: number, status: 'PENDING' | 'APPROVED' | 'ACTIVE' | 'FULFILLED' | 'CANCELLED'): Observable<boolean> {
+    const res = this.reservations.find(r => r.id === id);
+    if (res) {
+      res.status = status;
+      this.reservationsSubject.next(this.reservations);
+      return of(true);
+    }
+    return of(false);
+  }
 }

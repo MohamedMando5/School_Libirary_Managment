@@ -1,39 +1,103 @@
-<div class="admin-header">
-  <h2>Admin Dashboard</h2>
-  <a routerLink="/admin/books/add" class="btn btn-primary">+ Add New Book</a>
-</div>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h2>Admin Dashboard</h2>
+      <p class="subtitle">Overview of library performance and management</p>
+    </div>
+    <a routerLink="/admin/books/add" class="btn btn-primary">
+      <i class="icon">➕</i> Add New Book
+    </a>
+  </div>
 
-<div class="table-container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Cover</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Category</th>
-        <th>Copies (Avail/Total)</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let book of books$ | async">
-        <td>{{book.id}}</td>
-        <td><img [src]="book.coverImage" alt="Cover" class="book-thumbnail"></td>
-        <td>{{book.title}}</td>
-        <td>{{book.author}}</td>
-        <td>{{book.category}}</td>
-        <td>
-            <span [class.text-danger]="book.availableCopies === 0" [class.text-success]="book.availableCopies > 0">
-                {{book.availableCopies}}
-            </span> 
-            / {{book.totalCopies}}
-        </td>
-        <td>
-          <a [routerLink]="['/admin/books/edit', book.id]" class="btn btn-sm btn-outline-primary mr-1">Edit</a>
-          <button (click)="deleteBook(book.id)" class="btn btn-sm btn-outline-danger">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="card stat-card">
+      <div class="stat-icon books-icon">📚</div>
+      <div class="stat-info">
+        <h3>{{ totalBooks$ | async }}</h3>
+        <p>Total Books</p>
+      </div>
+    </div>
+    
+    <div class="card stat-card">
+      <div class="stat-icon users-icon">👥</div>
+      <div class="stat-info">
+        <h3>{{ totalUsers$ | async }}</h3>
+        <p>Registered Users</p>
+      </div>
+    </div>
+    
+    <div class="card stat-card">
+      <div class="stat-icon reservations-icon">📅</div>
+      <div class="stat-info">
+        <h3>{{ activeReservations$ | async }}</h3>
+        <p>Active Reservations</p>
+      </div>
+    </div>
+    
+    <div class="card stat-card">
+      <div class="stat-icon warning-icon">⚠️</div>
+      <div class="stat-info">
+        <h3>{{ lowStockBooks$ | async }}</h3>
+        <p>Low Stock Items</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Books Table -->
+  <div class="content-section">
+    <div class="section-header">
+      <h3>Library Inventory</h3>
+    </div>
+    
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Book Details</th>
+            <th>Category</th>
+            <th>Availability</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books$ | async">
+            <td><span class="id-badge">#{{book.id}}</span></td>
+            <td>
+              <div class="book-cell">
+                <img [src]="book.coverImage" alt="Cover" class="book-thumbnail">
+                <div class="book-info">
+                  <span class="book-title">{{book.title}}</span>
+                  <span class="book-author">{{book.author}}</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-info">{{book.category}}</span></td>
+            <td>
+              <div class="availability-bar">
+                <div class="progress-bar">
+                  <div class="progress" [style.width.%]="(book.availableCopies / book.totalCopies) * 100"
+                       [class.low]="book.availableCopies < 2"></div>
+                </div>
+                <span class="availability-text">
+                  {{book.availableCopies}} / {{book.totalCopies}}
+                </span>
+              </div>
+            </td>
+            <td class="text-right">
+              <div class="action-buttons">
+                <a [routerLink]="['/admin/books/edit', book.id]" class="btn btn-sm btn-outline" title="Edit">
+                  ✏️
+                </a>
+                <button (click)="deleteBook(book.id)" class="btn btn-sm btn-outline-danger" title="Delete">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

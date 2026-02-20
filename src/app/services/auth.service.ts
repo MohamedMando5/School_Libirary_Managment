@@ -46,4 +46,8 @@ export class AuthService {
   isAdmin(): boolean {
     return this.currentUserValue?.role === 'ADMIN';
   }
+
+  getUserCount(): Observable<number> {
+    return of(MOCK_USERS.length);
+  }
 }

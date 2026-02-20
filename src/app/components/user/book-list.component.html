@@ -1,35 +1,62 @@
-<div class="user-header">
-  <h2>Browse Books</h2>
-  <div class="filters">
-    <input 
-      type="text" 
-      [(ngModel)]="searchTerm" 
-      (input)="filterBooks()" 
-      class="form-control search-input" 
-      placeholder="Search by title or author..." 
-    />
-    <select 
-      [(ngModel)]="selectedCategory" 
-      (change)="filterBooks()" 
-      class="form-control category-select"
-    >
-      <option value="">All Categories</option>
-      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
-    </select>
-  </div>
-</div>
-
-<div class="books-grid">
-  <div class="card book-card" *ngFor="let book of filteredBooks">
-    <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
-    <div class="book-info">
-        <span class="badge">{{book.category}}</span>
-        <h3>{{book.title}}</h3>
-        <p class="author">{{book.author}}</p>
-        <p class="availability" [class.available]="book.availableCopies > 0" [class.unavailable]="book.availableCopies === 0">
-            {{book.availableCopies > 0 ? 'Available' : 'Out of Stock'}} ({{book.availableCopies}})
-        </p>
-        <a [routerLink]="['/books', book.id]" class="btn btn-primary btn-block mt-2">View Details</a>
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h2>Browse Library</h2>
+      <p class="subtitle">Discover your next great read</p>
+    </div>
+    
+    <div class="search-filters">
+      <div class="search-box">
+        <i class="icon search-icon">🔍</i>
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (input)="filterBooks()" 
+          class="form-control" 
+          placeholder="Search by title, author..." 
+        />
+      </div>
+      
+      <div class="filter-box">
+        <select 
+          [(ngModel)]="selectedCategory" 
+          (change)="filterBooks()" 
+          class="form-control"
+        >
+          <option value="">All Categories</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+        </select>
+      </div>
     </div>
   </div>
+
+  <div class="books-grid" *ngIf="filteredBooks.length > 0; else noBooks">
+    <div class="card book-card" *ngFor="let book of filteredBooks" [routerLink]="['/books', book.id]">
+      <div class="book-cover-wrapper">
+        <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
+        <span class="category-badge">{{book.category}}</span>
+      </div>
+      
+      <div class="book-info">
+        <h3 class="book-title">{{book.title}}</h3>
+        <p class="book-author">by {{book.author}}</p>
+        
+        <div class="book-meta">
+          <div class="status-indicator" [class.available]="book.availableCopies > 0" [class.unavailable]="book.availableCopies === 0">
+            <span class="dot"></span>
+            {{book.availableCopies > 0 ? 'Available' : 'Out of Stock'}}
+            <span class="count" *ngIf="book.availableCopies > 0">({{book.availableCopies}})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noBooks>
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>No books found</h3>
+      <p>Try adjusting your search terms or filters.</p>
+    </div>
+  </ng-template>
 </div>

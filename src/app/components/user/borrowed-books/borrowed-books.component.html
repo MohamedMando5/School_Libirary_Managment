@@ -1,28 +1,57 @@
-<div class="container">
-  <h2>My Borrowed Books</h2>
-  
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h2>My Borrowed Books</h2>
+      <p class="subtitle">Track your current loans and due dates</p>
+    </div>
+  </div>
+
   <div *ngIf="loading" class="text-center mt-5">
       <div class="spinner-border text-primary" role="status"></div>
   </div>
 
   <div *ngIf="!loading && borrowedBooks.length === 0" class="empty-state">
-      <p>You haven't borrowed any books yet.</p>
-      <a routerLink="/books" class="btn btn-primary">Browse Books</a>
+      <div class="empty-icon">📚</div>
+      <h3>No books currently borrowed</h3>
+      <p>Explore our collection and find something great to read.</p>
+      <a routerLink="/books" class="btn btn-primary mt-3">Browse Library</a>
   </div>
 
-  <div class="books-list" *ngIf="!loading && borrowedBooks.length > 0">
-      <div class="card book-item" *ngFor="let book of borrowedBooks">
-          <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
-          <div class="book-details">
-              <h3>{{book.title}}</h3>
-              <p class="author">{{book.author}}</p>
-              <div class="meta">
-                  <span class="due-date">Due: Nov 30, 2024</span>
-              </div>
-          </div>
-          <div class="actions">
-              <button (click)="returnBook(book)" class="btn btn-outline-primary">Return Book</button>
-          </div>
-      </div>
+  <div class="table-container" *ngIf="!loading && borrowedBooks.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Book Details</th>
+          <th>Author</th>
+          <th>Borrowed Date</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of borrowedBooks">
+          <td>
+            <div class="book-cell">
+              <img [src]="book.coverImage" alt="Cover" class="book-thumbnail">
+              <span class="book-title">{{book.title}}</span>
+            </div>
+          </td>
+          <td>{{book.author}}</td>
+          <td>Oct 15, 2024</td> <!-- Mock date -->
+          <td>
+             <span class="date-badge warning">Nov 30, 2024</span>
+          </td>
+          <td>
+            <span class="badge badge-success">Borrowed</span>
+          </td>
+          <td class="text-right">
+            <button (click)="returnBook(book)" class="btn btn-sm btn-outline-primary">
+              Return Book
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

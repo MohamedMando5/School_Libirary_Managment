@@ -8,7 +8,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'F. Scott Fitzgerald',
     category: 'Classic',
     description: 'A novel set in the Roaring Twenties.',
-    coverImage: 'https://via.placeholder.com/150/0000FF/808080?text=Great+Gatsby',
+    coverImage: 'public/book1.ico',
     totalCopies: 5,
     availableCopies: 3
   },
@@ -18,7 +18,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'Harper Lee',
     category: 'Classic',
     description: 'A novel about the serious issues of rape and racial inequality.',
-    coverImage: 'https://via.placeholder.com/150/FF0000/FFFFFF?text=Mockingbird',
+    coverImage: 'public/book2.ico',
     totalCopies: 3,
     availableCopies: 0
   },
@@ -28,7 +28,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'George Orwell',
     category: 'Dystopian',
     description: 'A social science fiction novel and cautionary tale.',
-    coverImage: 'https://via.placeholder.com/150/FFFF00/000000?text=1984',
+    coverImage: 'public/book3.ico',
     totalCopies: 10,
     availableCopies: 10
   },
@@ -38,7 +38,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'Jane Austen',
     category: 'Romance',
     description: 'A romantic novel of manners.',
-    coverImage: 'https://via.placeholder.com/150/008000/FFFFFF?text=Pride+Prejudice',
+    coverImage: 'public/book4.ico',
     totalCopies: 4,
     availableCopies: 2
   },
@@ -48,7 +48,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'J.D. Salinger',
     category: 'Fiction',
     description: 'A story about teenage rebellion.',
-    coverImage: 'https://via.placeholder.com/150/800080/FFFFFF?text=Catcher+Rye',
+    coverImage: 'public/book5.ico',
     totalCopies: 6,
     availableCopies: 5
   }

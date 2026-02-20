@@ -3,5 +3,5 @@ export interface Reservation {
   bookId: number;
   userId: number;
   reservationDate: Date;
-  status: 'ACTIVE' | 'FULFILLED' | 'CANCELLED';
+  status: 'PENDING' | 'APPROVED' | 'ACTIVE' | 'FULFILLED' | 'CANCELLED';
 }

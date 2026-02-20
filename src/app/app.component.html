@@ -1,4 +1,11 @@
 <app-navbar></app-navbar>
-<div class="main-container">
-  <router-outlet></router-outlet>
+
+<div class="app-layout">
+  <app-sidebar *ngIf="isAdmin$ | async"></app-sidebar>
+  
+  <main class="main-content">
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>

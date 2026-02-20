@@ -1,42 +1,95 @@
-.admin-header {
+.dashboard-container {
+  padding-bottom: 2rem;
+}
+
+.dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.table-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  overflow-x: auto;
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  
-  th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  
-  th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #5f6368;
-    position: sticky;
-    top: 0;
-  }
-  
-  tr:last-child td {
-    border-bottom: none;
-  }
-  
-  tr:hover {
-    background-color: #f8f9fa;
-  }
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  margin-bottom: 0; /* Override generic card margin */
+  border-left: 4px solid transparent;
+}
+
+.stat-card:nth-child(1) { border-left-color: var(--primary-color); }
+.stat-card:nth-child(2) { border-left-color: var(--secondary-color); }
+.stat-card:nth-child(3) { border-left-color: #7b1fa2; }
+.stat-card:nth-child(4) { border-left-color: var(--warning-color); }
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 1.25rem;
+  background-color: #f5f5f5;
+}
+
+.books-icon { background-color: #e3f2fd; color: var(--primary-color); }
+.users-icon { background-color: #e0f2f1; color: var(--secondary-color); }
+.reservations-icon { background-color: #f3e5f5; color: #7b1fa2; }
+.warning-icon { background-color: #fff8e1; color: #f57f17; }
+
+.stat-info h3 {
+  font-size: 1.75rem;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.stat-info p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Content Section */
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* Table Styles */
+.id-badge {
+  font-family: monospace;
+  color: var(--text-secondary);
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.book-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .book-thumbnail {
@@ -44,33 +97,76 @@
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  margin-right: 0.5rem;
+.book-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.btn-outline-primary {
-  color: #1a73e8;
-  border: 1px solid #1a73e8;
-  background: transparent;
-  
-  &:hover {
-    background-color: #e8f0fe;
-  }
+.book-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.book-author {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.availability-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: var(--success-color);
+  border-radius: 3px;
+}
+
+.progress.low {
+  background-color: var(--warning-color);
+}
+
+.availability-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.text-right {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .btn-outline-danger {
-  color: #d93025;
-  border: 1px solid #d93025;
-  background: transparent;
-  
-  &:hover {
-    background-color: #fce8e6;
-  }
+   padding: 0.4rem 0.6rem;
+   font-size: 0.9rem;
 }
 
-.text-danger { color: #d93025; }
-.text-success { color: #1e8e3e; }
+.btn-outline {
+    padding: 0.4rem 0.6rem;
+}
+
+.availability-bar .progress-bar {
+    width: 60px;
+}
