@@ -8,7 +8,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'F. Scott Fitzgerald',
     category: 'Classic',
     description: 'A novel set in the Roaring Twenties.',
-    coverImage: 'public/book1.ico',
+    coverImage: 'book1.ico',
     totalCopies: 5,
     availableCopies: 3
   },
@@ -18,7 +18,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'Harper Lee',
     category: 'Classic',
     description: 'A novel about the serious issues of rape and racial inequality.',
-    coverImage: 'public/book2.ico',
+    coverImage: 'book2.ico',
     totalCopies: 3,
     availableCopies: 0
   },
@@ -28,7 +28,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'George Orwell',
     category: 'Dystopian',
     description: 'A social science fiction novel and cautionary tale.',
-    coverImage: 'public/book3.ico',
+    coverImage: 'book3.ico',
     totalCopies: 10,
     availableCopies: 10
   },
@@ -38,7 +38,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'Jane Austen',
     category: 'Romance',
     description: 'A romantic novel of manners.',
-    coverImage: 'public/book4.ico',
+    coverImage: 'book4.ico',
     totalCopies: 4,
     availableCopies: 2
   },
@@ -48,7 +48,7 @@ export const MOCK_BOOKS: Book[] = [
     author: 'J.D. Salinger',
     category: 'Fiction',
     description: 'A story about teenage rebellion.',
-    coverImage: 'public/book5.ico',
+    coverImage: 'book5.ico',
     totalCopies: 6,
     availableCopies: 5
   }
