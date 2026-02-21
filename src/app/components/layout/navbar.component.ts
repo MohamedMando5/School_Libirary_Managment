@@ -27,6 +27,9 @@ import { User } from '../../models/user.model';
             <a *ngIf="user.role === 'STUDENT'" routerLink="/my-books" class="nav-link" routerLinkActive="active">
               <i class="icon">🎒</i> My Books
             </a>
+            <a *ngIf="user.role === 'STUDENT'" routerLink="/favorites" class="nav-link" routerLinkActive="active">
+              <i class="icon">❤️</i> My Favorites
+            </a>
             <a *ngIf="user.role === 'ADMIN'" routerLink="/admin" class="nav-link" routerLinkActive="active">
               <i class="icon">⚙️</i> Admin Dashboard
             </a>

@@ -8,8 +8,10 @@ import { BookDetailComponent } from './components/user/book-detail/book-detail.c
 import { BorrowedBooksComponent } from './components/user/borrowed-books/borrowed-books.component';
 import { authGuard } from './guards/auth.guard';
 
+import { LandingComponent } from './components/landing/landing.component';
+
 export const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', component: LandingComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { 
@@ -45,6 +47,12 @@ export const routes: Routes = [
     { 
         path: 'my-books', 
         component: BorrowedBooksComponent,
+        canActivate: [authGuard],
+        data: { roles: ['STUDENT'] }
+    },
+    { 
+        path: 'favorites', 
+        loadComponent: () => import('./components/user/favorites/favorites.component').then(m => m.FavoritesComponent),
         canActivate: [authGuard],
         data: { roles: ['STUDENT'] }
     },

@@ -2,11 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User, UserRole } from '../../models/user.model';
+import { Book } from '../../models/book.model';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { BookService } from '../../services/book.service';
+import { ReservationService } from '../../services/reservation.service';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   imports: [ReactiveFormsModule, CommonModule]
@@ -20,25 +24,45 @@ export class ProfileComponent implements OnInit {
   
   // For role-based conditional display
   userRole: UserRole | null = null;
+  borrowedCount = 0;
+  reservationCount = 0;
+  favoriteCount = 0;
 
-
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    private bookService: BookService,
+    private reservationService: ReservationService
+  ) {
     this.profileForm = this.createForm();
   }
 
   ngOnInit(): void {
-  this.authService.currentUser$.subscribe(user => {
-    this.user = user;
-    this.userRole = user?.role || null;
+    this.authService.currentUser$.subscribe(user => {
+      this.user = user;
+      this.userRole = user?.role || null;
 
-    if (user) {
-      this.updateFormWithUserData();
-    }
+      if (user) {
+        this.updateFormWithUserData();
+        this.loadStats(user.id);
+      }
 
-    this.isLoading = false;
-  });
-  console.log(this.authService.currentUser$);
-}
+      this.isLoading = false;
+    });
+  }
+
+  private loadStats(userId: number): void {
+    // Borrowed books (using the same logic as library for demo)
+    this.bookService.getBooks().subscribe((books: Book[]) => {
+      this.borrowedCount = books.filter((b: Book) => b.availableCopies < b.totalCopies).length;
+      this.favoriteCount = books.filter((b: Book) => b.isFavorite).length;
+    });
+
+    // Reservations
+    this.reservationService.getUserReservations(userId).subscribe((res: any[]) => {
+      this.reservationCount = res.filter((r: any) => r.status === 'ACTIVE').length;
+    });
+  }
   private createForm(): FormGroup {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],

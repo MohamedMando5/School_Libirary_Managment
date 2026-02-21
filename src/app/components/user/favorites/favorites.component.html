@@ -1,0 +1,47 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h2>My Favorites</h2>
+      <p class="subtitle">Your personal collection of books</p>
+    </div>
+  </div>
+
+  <div class="books-grid" *ngIf="favoriteBooks.length > 0; else noFavorites">
+    <div class="card book-card" *ngFor="let book of favoriteBooks" [routerLink]="['/books', book.id]">
+      <div class="book-cover-wrapper">
+        <img [src]="book.coverImage" [alt]="book.title" class="book-cover">
+        <span class="category-badge">{{book.category}}</span>
+        <button 
+          class="favorite-btn active" 
+          (click)="toggleFavorite(book, $event)"
+          aria-label="Remove from Favorites"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="heart-icon">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="book-info">
+        <h3 class="book-title">{{book.title}}</h3>
+        <p class="book-author">by {{book.author}}</p>
+        
+        <div class="book-meta">
+          <div class="status-indicator" [class.available]="book.availableCopies > 0" [class.unavailable]="book.availableCopies === 0">
+            <span class="dot"></span>
+            {{book.availableCopies > 0 ? 'Available' : 'Out of Stock'}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noFavorites>
+    <div class="empty-state">
+      <div class="empty-icon">❤️</div>
+      <h3>No favorites yet</h3>
+      <p>Browse the library and tap the heart icon to save books here.</p>
+      <a routerLink="/books" class="btn btn-outline-primary mt-3">Browse Books</a>
+    </div>
+  </ng-template>
+</div>

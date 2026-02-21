@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { Book } from '../models/book.model';
 import { MOCK_BOOKS } from '../data/mock-data';
 
@@ -10,7 +10,9 @@ export class BookService {
   private books: Book[] = [...MOCK_BOOKS]; // Copy mock data
   private booksSubject = new BehaviorSubject<Book[]>(this.books);
 
-  constructor() { }
+  constructor() {
+    this.loadFavoritesFromStorage();
+  }
 
   getBooks(): Observable<Book[]> {
     return this.booksSubject.asObservable();
@@ -61,5 +63,41 @@ export class BookService {
       return of(true);
     }
     return of(false);
+  }
+
+  toggleFavorite(bookId: number): Observable<void> {
+    const book = this.books.find(b => b.id === bookId);
+    if (book) {
+      book.isFavorite = !book.isFavorite;
+      this.saveFavoritesToStorage();
+      this.booksSubject.next(this.books);
+    }
+    return of(void 0);
+  }
+
+  getFavorites(): Observable<Book[]> {
+    return this.getBooks().pipe(
+      map((books: Book[]) => books.filter((b: Book) => b.isFavorite))
+    );
+  }
+
+  private loadFavoritesFromStorage() {
+    const favorites = localStorage.getItem('favoriteBookIds');
+    if (favorites) {
+      const ids: number[] = JSON.parse(favorites);
+      this.books.forEach(book => {
+        if (ids.includes(book.id)) {
+          book.isFavorite = true;
+        }
+      });
+      this.booksSubject.next(this.books);
+    }
+  }
+
+  private saveFavoritesToStorage() {
+    const favoriteIds = this.books
+      .filter(b => b.isFavorite)
+      .map(b => b.id);
+    localStorage.setItem('favoriteBookIds', JSON.stringify(favoriteIds));
   }
 }

@@ -7,4 +7,5 @@ export interface Book {
   coverImage: string;
   totalCopies: number;
   availableCopies: number;
+  isFavorite?: boolean;
 }
