@@ -1,0 +1,164 @@
+<!-- profile.component.html -->
+<div class="profile-container">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content" *ngIf="!isLoading && user">
+    <!-- Header -->
+    <div class="profile-header">
+      <div class="header-content">
+        <h1 style="color: white;">Profile</h1>
+        <div class="header-actions">
+          <button class="btn btn-secondary" *ngIf="!isEditing" (click)="toggleEdit()">
+            Edit Profile
+          </button>
+          <button class="btn btn-primary" *ngIf="isEditing" (click)="onSubmit()" [disabled]="isSaving">
+            <span *ngIf="!isSaving">Save Changes</span>
+            <span *ngIf="isSaving">Saving...</span>
+          </button>
+          <button class="btn btn-outline" *ngIf="isEditing" (click)="toggleEdit()" [disabled]="isSaving">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Badge -->
+    <div class="status-badge" [class.active]="user!.isActive" [class.inactive]="!user!.isActive">
+      {{ user!.isActive ? 'Active' : 'Inactive' }}
+    </div>
+
+    <!-- Profile Info -->
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Personal Information -->
+      <div class="info-section"> 
+        <h2>Personal Information</h2>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Full Name</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.name }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <input 
+                type="text" 
+                formControlName="name"
+                [class.invalid]="hasError('name', 'required') || hasError('name', 'minlength')"
+              >
+              <div class="error-message" *ngIf="hasError('name', 'required')">
+                Name is required
+              </div>
+              <div class="error-message" *ngIf="hasError('name', 'minlength')">
+                Name must be at least 2 characters
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Email</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.email }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <input 
+                type="email" 
+                formControlName="email"
+                [class.invalid]="hasError('email', 'required') || hasError('email', 'email')"
+              >
+              <div class="error-message" *ngIf="hasError('email', 'required')">
+                Email is required
+              </div>
+              <div class="error-message" *ngIf="hasError('email', 'email')">
+                Please enter a valid email
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Phone</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.phone || 'Not provided' }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <input type="tel" formControlName="phone">
+              <div class="error-message" *ngIf="hasError('phone', 'pattern')">
+                Please enter a valid phone number
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item full-width">
+            <label>Address</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.address || 'Not provided' }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <textarea formControlName="address" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role-Specific Information -->
+      <div class="info-section" *ngIf="userRole === 'STUDENT'">
+        <h2>Student Information</h2>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Student ID</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.studentId || 'Not assigned' }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <input type="text" formControlName="studentId">
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Department</label>
+            <div *ngIf="!isEditing" class="info-value">{{ user!.department || 'Not specified' }}</div>
+            <div *ngIf="isEditing" class="input-group">
+              <input type="text" formControlName="department">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Information -->
+      <div class="info-section" *ngIf="userRole === 'ADMIN'">
+        <h2>Administrative Information</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Admin ID</label>
+            <div class="info-value">ADM{{ user!.id }}</div>
+          </div>
+          <div class="info-item">
+            <label>Department</label>
+            <div class="info-value">{{ user!.department || 'Administration' }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Information -->
+      <div class="info-section">
+        <h2>Account Information</h2>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Role</label>
+            <div class="info-value role-badge" [class.student]="userRole === 'STUDENT'" [class.admin]="userRole === 'ADMIN'">
+              {{ userRole }}
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Account Status</label>
+            <div class="info-value status-text" [class.active]="user!.isActive">
+              {{ user!.isActive ? 'Active' : 'Inactive' }}
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Member Since</label>
+            <div class="info-value">{{ formatDate(user!.createdAt) }}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -48,11 +48,13 @@ export class RegisterComponent {
     
     // Create new user object
     const newUser: User = {
-        id: Math.floor(Math.random() * 10000), // simplistic random ID
-        name: `${this.f['firstName'].value} ${this.f['lastName'].value}`,
-        email: this.f['email'].value,
-        password: this.f['password'].value,
-        role: this.f['role'].value
+      id: Math.floor(Math.random() * 10000), // simplistic random ID
+      name: `${this.f['firstName'].value} ${this.f['lastName'].value}`,
+      email: this.f['email'].value,
+      password: this.f['password'].value,
+      role: this.f['role'].value,
+      isActive: false,
+      createdAt: ''
     };
 
     this.authService.register(newUser)
