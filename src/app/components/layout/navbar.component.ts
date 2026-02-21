@@ -33,7 +33,7 @@ import { User } from '../../models/user.model';
           </div>
           
           <div class="navbar-end">
-            <div class="user-profile">
+            <div class="user-profile" (click)="gotoProfile()">
               <span class="avatar">{{user.name.charAt(0)}}</span>
               <span class="user-name">{{user.name}}</span>
               <span class="role-badge" [ngClass]="user.role.toLowerCase()">{{user.role}}</span>
@@ -128,6 +128,7 @@ import { User } from '../../models/user.model';
       gap: 0.75rem;
       padding-right: 1rem;
       border-right: 1px solid var(--border-color);
+      cursor: pointer;
     }
 
     .avatar {
@@ -190,5 +191,8 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  gotoProfile() {
+    this.router.navigate(['/profile']);
   }
 }

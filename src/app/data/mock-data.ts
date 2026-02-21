@@ -59,14 +59,76 @@ export const MOCK_USERS: User[] = [
     id: 1,
     name: 'Admin User',
     email: 'admin@library.com',
-    password: 'admin', // Simple password for demo
-    role: 'ADMIN'
+    password: 'admin',
+    role: 'ADMIN',
+    phone: '01000000001',
+    address: 'Cairo, Egypt',
+    isActive: true,
+    createdAt: '2026-01-01',
+    department: 'Management'
   },
   {
     id: 2,
     name: 'John Student',
     email: 'student@library.com',
     password: 'user',
-    role: 'STUDENT'
+    role: 'STUDENT',
+    phone: '01000000002',
+    address: 'Giza, Egypt',
+    isActive: true,
+    createdAt: '2026-01-05',
+    studentId: 'ST1001',
+    department: 'Computer Science'
+  },
+  {
+    id: 3,
+    name: 'Sarah Ahmed',
+    email: 'sarah@library.com',
+    password: 'user123',
+    role: 'STUDENT',
+    phone: '01000000003',
+    address: 'Alexandria, Egypt',
+    isActive: true,
+    createdAt: '2026-01-10',
+    studentId: 'ST1002',
+    department: 'Engineering'
+  },
+  {
+    id: 4,
+    name: 'Michael Admin',
+    email: 'michael@library.com',
+    password: 'admin123',
+    role: 'ADMIN',
+    phone: '01000000004',
+    address: 'Cairo, Egypt',
+    isActive: true,
+    createdAt: '2026-01-02',
+    department: 'IT'
+  },
+  {
+    id: 5,
+    name: 'Ali Hassan',
+    email: 'ali@library.com',
+    password: 'user456',
+    role: 'STUDENT',
+    phone: '01000000005',
+    address: 'Tanta, Egypt',
+    isActive: false,
+    createdAt: '2026-01-15',
+    studentId: 'ST1003',
+    department: 'Business'
+  },
+  {
+    id: 6,
+    name: 'Mona Ibrahim',
+    email: 'mona@library.com',
+    password: 'user789',
+    role: 'STUDENT',
+    phone: '01000000006',
+    address: 'Mansoura, Egypt',
+    isActive: true,
+    createdAt: '2026-01-20',
+    studentId: 'ST1004',
+    department: 'Pharmacy'
   }
 ];

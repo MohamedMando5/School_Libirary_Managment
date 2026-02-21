@@ -48,6 +48,12 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: ['STUDENT'] }
     },
+    {
+        path: 'profile',
+        loadComponent: () => import('./components/profile/profile.component').then(m => m.ProfileComponent),
+        canActivate: [authGuard],
+        data: { roles: ['STUDENT', 'ADMIN'] }
+    },
     // Fallback
     { path: '**', redirectTo: '/login' }
 ];
